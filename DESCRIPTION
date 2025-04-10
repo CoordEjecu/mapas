@@ -1,13 +1,13 @@
-Package: templater
+Package: mapas
 Title: Template for R projects
 Authors@R: c(
-    person(given = "nies futbol",
-           family = "nies futbol",
+    person(given = "Leonardo",
+           family = "Baez",
            role = c("aut", "cre", "cph"),
-           email = "nepo@nies.futbol"
+           email = "leonardo.baez@sonora.gob.mx"
            ))
 Config/testthat/edition: 3
-Description: Plantilla de Ciencia de Datos en nies.futbol para proyectos en R
+Description: código necesario para graficar geodatos
 Encoding: UTF-8
 Imports:
     R6,
@@ -21,4 +21,4 @@ Suggests:
     roxygen2,
     testthat
 Type: Package
-Version: 0.1.0
+Version: 0.0.1
