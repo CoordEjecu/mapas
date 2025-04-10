@@ -1,0 +1,9 @@
+services:
+  coordejecu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: coordEjecu/plantilla_r
+    command: bash
+    volumes:
+      - $PWD:/workdir

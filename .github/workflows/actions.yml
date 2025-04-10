@@ -1,0 +1,14 @@
+name: Tests
+on: push
+jobs:
+  actions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@v2
+    - name: Construye imagen
+      run: docker build --tag nies .
+    - name: Verifica el formato
+      run: docker run nies make check
+    - name: Corre pruebas y evalúa cobertura
+      run: docker run nies make coverage
