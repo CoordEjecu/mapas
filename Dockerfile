@@ -1,2 +1,2 @@
-FROM islasgeci/base:1.0.0
+FROM rocker/geospatial
 COPY . /workdir
