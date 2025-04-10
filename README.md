@@ -1,8 +1,8 @@
-# Template for R projects
-[![codecov](https://codecov.io/gh/CoordEjecu/plantilla_r/graph/badge.svg?token=83MS0KCKCU)](https://codecov.io/gh/CoordEjecu/plantilla_r)
-![licencia](https://img.shields.io/github/license/CoordEjecu/plantilla_r)
-![languages](https://img.shields.io/github/languages/top/CoordEjecu/plantilla_r)
-![commits](https://img.shields.io/github/commit-activity/y/CoordEjecu/plantilla_r)
+# mapas
+[![codecov](https://codecov.io/gh/CoordEjecu/mapas/graph/badge.svg?token=83MS0KCKCU)](https://codecov.io/gh/CoordEjecu/mapas)
+![licencia](https://img.shields.io/github/license/CoordEjecu/mapas)
+![languages](https://img.shields.io/github/languages/top/CoordEjecu/mapas)
+![commits](https://img.shields.io/github/commit-activity/y/CoordEjecu/mapas)
 
 ## Step to use
 
