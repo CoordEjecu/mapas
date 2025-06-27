@@ -2,11 +2,9 @@ library(sf)
 library(ggplot2)
 
 # Read the shapefile
-distritos <- st_read("/workdir/data/shp/DISTRITO_FEDERAL.shp")
-manzanas <- st_read("/workdir/data/shp/MANZANA.shp")
+distritos <- st_read("/workdir/data/26 SONORA/DISTRITO_FEDERAL.shp")
+manzanas <- st_read("/workdir/data/26 SONORA/MANZANA.shp")
 
-# Basic plot
-plot(shape_data)
 
 # Nicer plot with ggplot2
 ggplot() +
