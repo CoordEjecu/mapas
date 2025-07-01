@@ -10,6 +10,9 @@ all: check coverage
     setup \
     tests
 
+avance_de_brigadeo.png: src/firstmap.R data/REPORTE_AFILIACION_04_MUN.csv
+	Rscript src/firstmap.R
+
 check:
 	R -e "library(styler)" \
       -e "resumen <- style_dir('R')" \
