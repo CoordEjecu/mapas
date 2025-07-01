@@ -14,6 +14,8 @@ porcentajes <- readr::read_csv("/workdir/data/REPORTE_AFILIACION_04_MUN.csv", sh
     )
   )
 
+optimizada <- readr::read_csv("data/Estrategia_Optimizada_por_Distancia.csv", show_col_types = FALSE)
+
 colores <- c(
   "0-49 (Rojo)" = "#FF0000", # Rojo
   "50-89 (Naranja)" = "#FFA500", # Naranja
@@ -21,7 +23,15 @@ colores <- c(
 )
 
 completos <- porcentajes |>
-  dplyr::left_join(municipios, by = c("MUNICIPIO" = "NOMBRE"))
+  dplyr::left_join(municipios, by = c("MUNICIPIO" = "NOMBRE")) 
+
+etiquetas_opt <- optimizada |>
+  dplyr::left_join(completos, by = c("MUNICIPIOS" = "MUNICIPIO")) |>
+  dplyr::mutate(
+    centroide = st_centroid(geometry),
+    lon = st_coordinates(centroide)[, 1],
+    lat = st_coordinates(centroide)[, 2]
+    )
 
 ggplot(completos) +
   geom_sf(data = municipios) +
@@ -31,6 +41,13 @@ ggplot(completos) +
     values = colores,
     drop = FALSE
   ) +
+  geom_text(
+    data = etiquetas_opt,
+    aes(x = lon, y = lat, label = ID),
+    size = 2,
+    color = "black",
+    fontface = "bold"
+  ) +
   theme_minimal() +
   labs(title = "Municipios por rangos de valor")
-ggsave("/workdir/borrame_cc.png")
+ggsave("/workdir/avance_de_brigadeo.png")
