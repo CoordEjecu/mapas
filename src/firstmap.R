@@ -23,7 +23,7 @@ colores <- c(
 )
 
 completos <- porcentajes |>
-  dplyr::left_join(municipios, by = c("MUNICIPIO" = "NOMBRE")) 
+  dplyr::left_join(municipios, by = c("MUNICIPIO" = "NOMBRE"))
 
 etiquetas_opt <- optimizada |>
   dplyr::left_join(completos, by = c("MUNICIPIOS" = "MUNICIPIO")) |>
@@ -31,7 +31,7 @@ etiquetas_opt <- optimizada |>
     centroide = st_centroid(geometry),
     lon = st_coordinates(centroide)[, 1],
     lat = st_coordinates(centroide)[, 2]
-    )
+  )
 
 ggplot(completos) +
   geom_sf(data = municipios) +
