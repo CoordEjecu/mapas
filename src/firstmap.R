@@ -52,6 +52,6 @@ ggplot(completos) +
   labs(title = "Municipios por rangos de valor")
 ggsave("/workdir/avance_de_brigadeo.png")
 
-etiquetas_opt |> 
+etiquetas_opt |>
   dplyr::select(MUNICIPIOS, ID, lon, lat) |>
   readr::write_csv("/workdir/etiquetas_optimizadas.csv")
