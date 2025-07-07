@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    working_dir: /workdir
     image: coordEjecu/mapas
     command: bash
     volumes:
