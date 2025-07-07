@@ -53,5 +53,7 @@ ggplot(completos) +
 ggsave("/workdir/avance_de_brigadeo.png")
 
 etiquetas_opt |>
-  dplyr::select(MUNICIPIOS, ID, lon, lat) |>
+  dplyr::select(MUNICIPIOS, ID, lon, lat, distancia_a_hillo,tiempo) |>
+  dplyr::filter(!is.na(ID)) |>
+  dplyr::arrange(tiempo) |>
   readr::write_csv("/workdir/etiquetas_optimizadas.csv")
