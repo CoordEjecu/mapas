@@ -1,14 +1,18 @@
 library(ggplot2)
+better_from_hillo <- readr::read_csv("better_from_hillo.csv", show_col_types = FALSE) |>
+  dplyr::select(MUNICIPIO, better_from_hillo)
 time_and_distance <- readr::read_csv("/workdir/data/REPORTE_AFILIACION_04_MUN.csv", show_col_types = FALSE) |>
   dplyr::filter(!is.na(No.)) |>
   dplyr::mutate(
     faltantes = META - AVANCE,
     recursos = distancia + tiempo,
     pendiente = faltantes / recursos
-  )
+  ) |>
+  dplyr::left_join(better_from_hillo, by = c("MUNICIPIO"))
 
 time_and_distance_cumsum <- time_and_distance |>
   dplyr::filter(faltantes > 0) |>
+  dplyr::filter(better_from_hillo) |>
   dplyr::arrange(desc(pendiente)) |>
   dplyr::mutate(
     Acum_Personas = cumsum(faltantes) / sum(faltantes),
