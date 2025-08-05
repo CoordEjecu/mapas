@@ -4,9 +4,9 @@ library(ggplot2)
 # Read the shapefile
 municipios <- st_read("/workdir/data/26 SONORA/MUNICIPIO.shp")
 
-porcentajes <- readr::read_csv("/workdir/data/REPORTE_AFILIACION_04_MUN.csv", show_col_types = FALSE) |>
+porcentajes <- readr::read_csv("/workdir/data/municipio_meta_avance.csv", show_col_types = FALSE) |>
   dplyr::mutate(
-    porc = 100 * AVANCE / META,
+    porc = 100 * avance / meta,
     categoria = dplyr::case_when(
       porc >= 90 ~ "90-100 (Verde)",
       porc >= 50 ~ "50-89 (Naranja)",
