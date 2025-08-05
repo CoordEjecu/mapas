@@ -1,10 +1,10 @@
 library(ggplot2)
 better_from_hillo <- readr::read_csv("better_from_hillo.csv", show_col_types = FALSE) |>
   dplyr::select(MUNICIPIO, better_from_hillo)
-time_and_distance <- readr::read_csv("/workdir/data/REPORTE_AFILIACION_04_MUN.csv", show_col_types = FALSE) |>
-  dplyr::filter(!is.na(No.)) |>
+
+time_and_distance <- time_and_distance |>
   dplyr::mutate(
-    faltantes = META - AVANCE,
+    faltantes = meta - avance,
     recursos = distancia + tiempo,
     pendiente = faltantes / recursos
   ) |>
@@ -31,5 +31,8 @@ time_and_distance_cumsum |>
     size = 3,
     color = "black"
   ) +
+  xlab("Acumulado de Recursos") +
+  ylab("Acumulado de Personas") +
+  ggtitle("Prioritización de municipio por recursos y personas faltantes") +
   theme_classic()
 ggsave("priorization_pareto.png")
