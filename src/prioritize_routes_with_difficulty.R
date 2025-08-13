@@ -1,5 +1,3 @@
-library(ggplot2)
-
 from_municipy <- "mocte"
 municipy_name <- list("hillo" = "Hermosillo", "guay" = "Guaymas", "mocte" = "Moctezuma")[[from_municipy]]
 is_from_municipy <- rlang::sym(glue::glue("better_from_{from_municipy}"))
@@ -28,27 +26,6 @@ time_and_distance_cumsum <- time_and_distance |>
   dplyr::mutate(
     Acum_Personas = cumsum(faltantes) / sum(faltantes),
     Acum_Recursos = cumsum(recursos) / sum(recursos)
-  )
-
-time_and_distance_cumsum |>
-  ggplot(aes(x = Acum_Recursos, y = Acum_Personas, label = rownames(MUNICIPIO))) +
-  geom_point(size = 3, color = "firebrick") +
-  geom_line() +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_text(
-    aes(label = MUNICIPIO), # Usa la columna MUNICIPIO como etiqueta
-    hjust = 0.5, # Ajuste horizontal de la etiqueta
-    vjust = -0.7, # Ajuste vertical
-    size = 3,
-    color = "black"
-  ) +
-  xlab("Acumulado de Recursos") +
-  ylab("Acumulado de Personas") +
-  ggtitle("Prioritización de municipio por recursos y personas faltantes", subtitle = glue::glue("Desde {municipy_name}")) +
-  theme_classic()
-ggsave("/workdir/results/priorization_pareto.png")
-
-time_and_distance_cumsum |>
+  ) |>
   dplyr::mutate(porcentaje = round(porcentaje, 1)) |>
-  dplyr::select(MUNICIPIO, distancia, tiempo, porcentaje) |>
-  readr::write_csv(glue::glue("/workdir/data/prioritized_routes_{from_municipy}.csv"))
+  readr::write_csv(glue::glue("/workdir/results/prioritized_routes.csv"))

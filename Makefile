@@ -15,6 +15,12 @@ results/avance_de_brigadeo.png: src/firstmap.R data/municipio_meta_avance.csv
 	Rscript src/firstmap.R
 
 results/priorization_pareto.png: \
+    src/plot_prioritize_routes_with_difficulty.R \
+    results/prioritized_routes.csv
+	mkdir --parents $(@D)
+	./runRscript src/plot_prioritize_routes_with_difficulty.R
+
+results/prioritized_routes.csv: \
     src/prioritize_routes_with_difficulty.R \
     data/municipio_meta_avance.csv \
     data/votes_by_municipalities.csv \
