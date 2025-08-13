@@ -48,4 +48,3 @@ ggplot(completos) +
   theme_minimal() +
   labs(title = "Municipios por rangos de valor")
 ggsave("/workdir/results/avance_de_brigadeo.png")
-

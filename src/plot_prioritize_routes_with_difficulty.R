@@ -23,4 +23,3 @@ time_and_distance_cumsum |>
   ggtitle("Prioritización de municipio por recursos y personas faltantes", subtitle = glue::glue("Desde {municipy_name}")) +
   theme_classic()
 ggsave("/workdir/results/priorization_pareto.png")
-
