@@ -31,4 +31,4 @@ to_compare_resource <- time_and_distance_hillo |>
     diff_mocte_hillo = recursos - recursos.x,
     better_from_hillo = ifelse((diff_guaymas_hillo > -120) & (diff_mocte_hillo > -240), TRUE, FALSE)
   ) |>
-  readr::write_csv("better_from_hillo.csv")
+  readdp::write_csv("/workdir/data/better_from_hillo.csv")

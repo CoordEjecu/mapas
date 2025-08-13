@@ -11,4 +11,5 @@ municipio <- datos |>
     avance = sum(AVANCE, na.rm = TRUE),
     porcentaje = avance / meta * 100,
     .groups = "drop"
-  )
+  ) |>
+  readdp::write_csv("/workdir/data/municipio_meta_avance.csv")
