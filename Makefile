@@ -25,6 +25,9 @@ clean:
 	rm --force *.tar.gz
 	rm --force --recursive tests/testthat/_snaps
 	rm --force NAMESPACE
+	rm --force data/better_from_hillo.csv
+	rm --force data/municipio_meta_avance.csv
+	rm --force data/votes_by_municipalities.csv
 
 coverage: setup tests
 	Rscript tests/testthat/coverage.R
@@ -48,3 +51,25 @@ install:
 
 tests:
 	Rscript -e "devtools::test(stop_on_failure = TRUE)"
+
+priorization_pareto.png: \
+    src/prioritize_routes_with_difficulty.R \
+    data/municipio_meta_avance.csv \
+    data/votes_by_municipalities.csv \
+    data/better_from_hillo.csv
+
+data/municipio_meta_avance.csv: src/clean_afiliados_by_sections.R data/REPORTE_AFILIACION_04_X_SECCION_20250731.csv
+	./runRscript src/clean_afiliados_by_sections.R
+
+data/votes_by_municipalities.csv: \
+    src/add_votes_to_sections.R \
+    data/summary_morena_2024.csv \
+    data/secciones.csv
+	./runRscript src/add_votes_to_sections.R
+
+data/better_from_hillo.csv: \
+    src/resource_radios.R \
+    data/REPORTE_AFILIACION_04_MUN.csv \
+    data/distancias_desde_guaymas.csv \
+    data/distancias_desde_moctezuma.csv
+	./runRscript src/resource_radios.R
