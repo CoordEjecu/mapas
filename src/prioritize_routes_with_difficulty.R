@@ -1,6 +1,11 @@
 library(ggplot2)
+
+from_municipy <- "mocte"
+municipy_name <- list("hillo" = "Hermosillo", "guay" = "Guaymas", "mocte" = "Moctezuma")[[from_municipy]]
+is_from_municipy <- rlang::sym(glue::glue("better_from_{from_municipy}"))
+
 better_from_hillo <- readr::read_csv("/workdir/data/better_from_hillo.csv", show_col_types = FALSE) |>
-  dplyr::select(MUNICIPIO, better_from_hillo)
+  dplyr::select(MUNICIPIO, better_from_hillo, better_from_mocte)
 
 meta_avance <- readr::read_csv("/workdir/data/municipio_meta_avance.csv", show_col_types = FALSE)
 votos <- readr::read_csv("/workdir/data/votes_by_municipalities.csv", show_col_types = FALSE)
@@ -18,7 +23,7 @@ time_and_distance <- time_distance |>
 
 time_and_distance_cumsum <- time_and_distance |>
   dplyr::filter(faltantes > 0) |>
-  dplyr::filter(better_from_hillo) |>
+  dplyr::filter(!!is_from_municipy) |>
   dplyr::arrange(desc(pendiente)) |>
   dplyr::mutate(
     Acum_Personas = cumsum(faltantes) / sum(faltantes),
@@ -39,11 +44,11 @@ time_and_distance_cumsum |>
   ) +
   xlab("Acumulado de Recursos") +
   ylab("Acumulado de Personas") +
-  ggtitle("Prioritización de municipio por recursos y personas faltantes") +
+  ggtitle("Prioritización de municipio por recursos y personas faltantes", subtitle = glue::glue("Desde {municipy_name}")) +
   theme_classic()
 ggsave("/workdir/results/priorization_pareto.png")
 
 time_and_distance_cumsum |>
   dplyr::mutate(porcentaje = round(porcentaje, 1)) |>
   dplyr::select(MUNICIPIO, distancia, tiempo, porcentaje) |>
-  readr::write_csv("/workdir/data/prioritized_routes.csv")
+  readr::write_csv(glue::glue("/workdir/data/prioritized_routes_{from_municipy}.csv"))
