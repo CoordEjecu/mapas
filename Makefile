@@ -61,7 +61,7 @@ results/priorization_pareto.png: \
 	mkdir --parents $(@D)
 	./runRscript src/prioritize_routes_with_difficulty.R
 
-data/municipio_meta_avance.csv: src/clean_afiliados_by_sections.R data/REPORTE_AFILIACION_04_X_SECCION_20250731.csv
+data/municipio_meta_avance.csv: src/clean_afiliados_by_sections.R data/REPORTE_AFILIACION_04_X_SECCION_20250813.csv
 	./runRscript src/clean_afiliados_by_sections.R
 
 data/votes_by_municipalities.csv: \
