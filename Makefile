@@ -23,6 +23,7 @@ check:
 
 clean:
 	rm --force *.tar.gz
+	rm --force --recursive results
 	rm --force --recursive tests/testthat/_snaps
 	rm --force NAMESPACE
 	rm --force data/better_from_hillo.csv
@@ -52,11 +53,13 @@ install:
 tests:
 	Rscript -e "devtools::test(stop_on_failure = TRUE)"
 
-priorization_pareto.png: \
+results/priorization_pareto.png: \
     src/prioritize_routes_with_difficulty.R \
     data/municipio_meta_avance.csv \
     data/votes_by_municipalities.csv \
     data/better_from_hillo.csv
+	mkdir --parents $(@D)
+	./runRscript src/prioritize_routes_with_difficulty.R
 
 data/municipio_meta_avance.csv: src/clean_afiliados_by_sections.R data/REPORTE_AFILIACION_04_X_SECCION_20250731.csv
 	./runRscript src/clean_afiliados_by_sections.R
