@@ -14,8 +14,6 @@ porcentajes <- readr::read_csv("/workdir/data/municipio_meta_avance.csv", show_c
     )
   )
 
-optimizada <- readr::read_csv("data/Estrategia_Optimizada_por_Distancia.csv", show_col_types = FALSE)
-
 colores <- c(
   "0-49 (Rojo)" = "#FF0000", # Rojo
   "50-89 (Naranja)" = "#FFA500", # Naranja
@@ -25,8 +23,7 @@ colores <- c(
 completos <- porcentajes |>
   dplyr::left_join(municipios, by = c("MUNICIPIO" = "NOMBRE"))
 
-etiquetas_opt <- optimizada |>
-  dplyr::left_join(completos, by = c("MUNICIPIOS" = "MUNICIPIO")) |>
+etiquetas_opt <- completos |>
   dplyr::mutate(
     centroide = st_centroid(geometry),
     lon = st_coordinates(centroide)[, 1],
@@ -50,10 +47,5 @@ ggplot(completos) +
   ) +
   theme_minimal() +
   labs(title = "Municipios por rangos de valor")
-ggsave("/workdir/avance_de_brigadeo.png")
+ggsave("/workdir/results/avance_de_brigadeo.png")
 
-etiquetas_opt |>
-  dplyr::select(MUNICIPIOS, ID, lon, lat, distancia_a_hillo, tiempo) |>
-  dplyr::filter(!is.na(ID)) |>
-  dplyr::arrange(tiempo) |>
-  readr::write_csv("/workdir/etiquetas_optimizadas.csv")
