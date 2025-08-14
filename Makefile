@@ -20,7 +20,10 @@ results/priorization_pareto.png: \
 	mkdir --parents $(@D)
 	./runRscript src/plot_prioritize_routes_with_difficulty.R
 
-results/goals_and_votes.csv: src/goal_and_votes.R data/votes_by_municipalities.csv
+results/goals_and_votes.csv: \
+	src/goal_and_votes.R \
+	data/votes_by_municipalities.csv \
+	data/municipio_meta_avance.csv
 	mkdir --parents $(@D)
 	Rscript src/goal_and_votes.R
 
