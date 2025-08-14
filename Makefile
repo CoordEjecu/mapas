@@ -61,6 +61,7 @@ check:
 
 clean:
 	rm --force *.tar.gz
+	rm --force --recursive mapas.Rcheck
 	rm --force --recursive results
 	rm --force --recursive tests/testthat/_snaps
 	rm --force NAMESPACE
