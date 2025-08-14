@@ -28,4 +28,4 @@ time_and_distance_cumsum <- time_and_distance |>
     Acum_Recursos = cumsum(recursos) / sum(recursos)
   ) |>
   dplyr::mutate(porcentaje = round(porcentaje, 1)) |>
-  readr::write_csv(glue::glue("/workdir/results/prioritized_routes.csv"))
+  readdp::write_csv(glue::glue("/workdir/results/prioritized_routes.csv"))
