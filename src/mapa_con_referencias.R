@@ -1,7 +1,7 @@
 library(sf)
 library(ggplot2)
 
-id_name = jsonlite::fromJSON("tests/data/id_name_municipies.json")
+id_name <- jsonlite::fromJSON("tests/data/id_name_municipies.json")
 municipio <- id_name$BACUM
 # Read the shapefile
 municipios <- sf::st_read("/workdir/data/26 SONORA/MUNICIPIO.shp") |>

@@ -1,6 +1,6 @@
 library(sf)
 
-id_name = jsonlite::fromJSON("tests/data/id_name_municipies.json")
+id_name <- jsonlite::fromJSON("tests/data/id_name_municipies.json")
 municipio <- id_name$BACUM
 cabeceras <- st_read("/workdir/data/26 SONORA/CABECERA_MUNICIPAL.shp") |>
   dplyr::filter(MUNICIPIO == municipio)
