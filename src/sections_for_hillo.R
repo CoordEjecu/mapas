@@ -11,7 +11,7 @@ cabeceras <- st_read("/workdir/data/26 SONORA/CABECERA_MUNICIPAL.shp") |>
   dplyr::filter(MUNICIPIO == municipio)
 secciones <- st_read("/workdir/data/26 SONORA/SECCION.shp") |>
   dplyr::filter(MUNICIPIO == municipio, TIPO == 2)
-localidades <- st_read("/workdir/data/26 SONORA/LIMITE_LOCALIDAD.shp")  |>
+localidades <- st_read("/workdir/data/26 SONORA/LIMITE_LOCALIDAD.shp") |>
   dplyr::filter(MUNICIPIO == municipio, NOMBRE == "HERMOSILLO")
 
 id_seccion <- secciones$SECCION
@@ -45,7 +45,7 @@ map_municipy <- ggplot() +
     xlim = c(limites_seccion$xmin, limites_seccion$xmax),
     ylim = c(limites_seccion$ymin, limites_seccion$ymax)
   )
-  labs(title = glue::glue("{stringr::str_to_title(cabeceras$LOCALIDAD_.1)}"))
+labs(title = glue::glue("{stringr::str_to_title(cabeceras$LOCALIDAD_.1)}"))
 
 mapa_final <- cowplot::ggdraw() +
   cowplot::draw_plot(map_municipy) +
