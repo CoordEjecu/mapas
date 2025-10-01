@@ -1,10 +1,12 @@
+year <- 2024
+path <- glue::glue("/workdir/data/AYUNTAMIENTO_{year}.csv")
 datos <- readr::read_csv(
-  "/workdir/data/AYUNTAMIENTO_2021.csv",
+  path,
   show_col_types = FALSE)
 
-party_name <- "MOVIMIENTO CIUDADANO"
+party_name <- "MOVIMIENTO_CIUDADANO"
 party <- datos |>
-  dplyr::group_by(id_seccion) |>
+  dplyr::group_by(seccion) |>
   dplyr::summarize(
 	partido = sum(!!rlang::sym(party_name)),
 	nominal = sum(lista_nominal),
@@ -15,4 +17,5 @@ party <- datos |>
   dplyr::ungroup() |>
   dplyr::arrange(-total)
 
-readr::write_csv(party, "/workdir/results/pre_processed/summary_mc_2021_sonora_iee.csv")
+output_path <- glue::glue("/workdir/results/pre_processed/summary_mc_{year}_sonora_iee.csv")
+readr::write_csv(party, output_path)
