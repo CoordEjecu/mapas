@@ -5,7 +5,7 @@ secciones <- st_read("/workdir/data/26 SONORA/SECCION.shp") |>
   dplyr::filter(DISTRITO == 4) |>
   dplyr::pull(SECCION)
 
-ayuntamiento <- readr::read_csv("data/AYUNTAMIENTO_2021.csv", show_col_types = FALSE) |>
+ayuntamiento <- readr::read_csv("data/AYUNTAMIENTO_2024.csv", show_col_types = FALSE) |>
   dplyr::filter(seccion %in% secciones)
 
 total_de_votos_efectivos <- sum(ayuntamiento$total_votos, na.rm = TRUE)
@@ -13,8 +13,8 @@ total_de_votos_efectivos <- sum(ayuntamiento$total_votos, na.rm = TRUE)
 name_municipies_with_80 <- ayuntamiento |>
   dplyr::group_by(municipio) |>
   dplyr::summarise(
-	total = sum(total_votos, na.rm = TRUE),
-	.groups = "drop"
+    total = sum(total_votos, na.rm = TRUE),
+    .groups = "drop"
   ) |>
   dplyr::arrange(-total) |>
   dplyr::mutate(acumulado = cumsum(total)) |>
@@ -43,6 +43,6 @@ el_mapita <- ggplot() +
   ) +
   theme_minimal()
 
-municipy_map <- glue::glue("/workdir/results/municipios_copn_el_80_de_votos.png")
+municipy_map <- glue::glue("/workdir/results/municipios_copn_el_80_de_votos_2024.png")
 
 ggsave(el_mapita, filename = municipy_map, width = 8, height = 6)
