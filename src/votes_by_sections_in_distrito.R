@@ -1,25 +1,30 @@
 library(sf)
 library(ggplot2)
+source("/workdir/R/works_with_metadata.R")
 
-secciones <- st_read("/workdir/data/26 SONORA/SECCION.shp") |>
+secciones <- sf::st_read("/workdir/data/26 SONORA/SECCION.shp") |>
   dplyr::filter(DISTRITO == 4) |>
   dplyr::pull(SECCION)
-
-ayuntamiento <- readr::read_csv("data/AYUNTAMIENTO_2024.csv", show_col_types = FALSE) |>
-  dplyr::filter(seccion %in% secciones)
-
-total_de_votos_efectivos <- sum(ayuntamiento$total_votos, na.rm = TRUE)
-
+metadatos <- jsonlite::read_json("data/datapackage.json")
+recurso <- metadatos$resources[[2]]
+schema <- recurso$schema
+path <- recurso$path
+section_name <- get_name_from_standard_name(schema, "section")
+ayuntamiento <- readr::read_csv(path, show_col_types = FALSE) |>
+  dplyr::filter(!!rlang::sym(section_name) %in% secciones)
+total_votes_name <- get_name_from_standard_name(schema, "total_votes")
+total_de_votos_efectivos <- sum(ayuntamiento[[total_votes_name]], na.rm = TRUE)
+municipality_name <- get_name_from_standard_name(schema, "municipality")
 name_municipies_with_80 <- ayuntamiento |>
-  dplyr::group_by(municipio) |>
+  dplyr::group_by(!!rlang::sym(municipality_name)) |>
   dplyr::summarise(
-    total = sum(total_votos, na.rm = TRUE),
+    total = sum(!!rlang::sym(total_votes_name), na.rm = TRUE),
     .groups = "drop"
   ) |>
   dplyr::arrange(-total) |>
   dplyr::mutate(acumulado = cumsum(total)) |>
   dplyr::filter(acumulado <= total_de_votos_efectivos * 0.8) |>
-  dplyr::pull(municipio)
+  dplyr::pull(!!rlang::sym(municipality_name))
 
 municipios <- sf::st_read("/workdir/data/26 SONORA/MUNICIPIO.shp") |>
   dplyr::filter(NOMBRE %in% name_municipies_with_80) |>
