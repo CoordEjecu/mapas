@@ -1,6 +1,6 @@
 sections <- readr::read_csv("/workdir/data/secciones.csv", show_col_types = FALSE) |>
-  dplyr::filter(ESTADO == 26, DISTRITO == 4) |>
-  dplyr::select(NOMBRE_MUNICIPIO, SECCION) |>
+  dplyr::filter(ENTIDAD == 26, DISTRITO == 4) |>
+  dplyr::select(NOMBRE, SECCION) |>
   dplyr::distinct()
 
 summary_morena <- readr::read_csv("/workdir/data/summary_morena_2024.csv", show_col_types = FALSE)
