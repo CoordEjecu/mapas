@@ -6,9 +6,9 @@ municipio <- id_name$BACUM
 # Read the shapefile
 municipios <- sf::st_read("/workdir/data/26 SONORA/MUNICIPIO.shp") |>
   dplyr::filter(MUNICIPIO == municipio)
-cabeceras <- st_read("/workdir/data/26 SONORA/CABECERA_MUNICIPAL.shp") |>
+cabeceras <- sf::st_read("/workdir/data/26 SONORA/CABECERA_MUNICIPAL.shp") |>
   dplyr::filter(MUNICIPIO == municipio)
-secciones <- st_read("/workdir/data/26 SONORA/SECCION.shp") |>
+secciones <- sf::st_read("/workdir/data/26 SONORA/SECCION.shp") |>
   dplyr::filter(MUNICIPIO == municipio)
 id_seccion <- secciones$SECCION
 cabecera <- stringr::str_to_lower(stringr::str_replace_all(cabeceras$LOCALIDAD_.1, " ", "_"))
